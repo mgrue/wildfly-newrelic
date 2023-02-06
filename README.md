@@ -32,5 +32,14 @@ Supported properties:
 Add the handler to a logger (example)
 ``/subsystem=logging/logger=ch.performancebuildings.control:add-handler(name=PB-NEWRELIC)``
 
+To increase throughput consider using an async-handler
+```
+// create a new async handler
+/subsystem=logging/async-handler=NEWRELIC-ASYNC:add(level=DEBUG, queue-length=1024, overflow-action=BLOCK)
+
+// assign the previously created handler as a subhandler
+/subsystem=logging/async-handler=NEWRELIC-ASYNC:assign-subhandler(name=PB-NEWRELIC)
+```
+
 ### Testing & Debugging
 For debugging set the logger ch.performancebuildings.newrelic.NewrelicHandler to DEBUG

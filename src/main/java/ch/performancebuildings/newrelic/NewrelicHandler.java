@@ -2,6 +2,7 @@ package ch.performancebuildings.newrelic;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,23 +38,12 @@ public class NewrelicHandler extends ExtHandler {
 
     @Override
     protected void doPublish(final ExtLogRecord record) {
-        if(licenseKey == null) {
+        if (licenseKey == null) {
             throw new IllegalStateException("licenseKey == null");
         }
 
         try {
-            final JsonObject obj = Json.createObjectBuilder()
-                    .add("timestamp", System.currentTimeMillis())
-                    .add("message", record.getMessage())
-                    .add("hostname", hostname)
-                    .add("source", getSourceOrHost())
-                    .add("level", record.getLevel().getName())
-                    .add("class", record.getSourceClassName())
-                    .add("method", record.getSourceMethodName())
-                    .add("file", record.getSourceFileName())
-                    .add("line", record.getSourceLineNumber())
-                    .add("loggerClass", record.getLoggerClassName())
-                    .build();
+            final JsonObject obj = buildJson(record);
 
             final HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(baseURI))
@@ -98,5 +88,68 @@ public class NewrelicHandler extends ExtHandler {
 
     private String getSourceOrHost() {
         return source == null ? hostname : source;
+    }
+
+    private JsonObject buildJson(ExtLogRecord record) {
+        final JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("timestamp", System.currentTimeMillis())
+                .add("source", getSourceOrHost());
+
+        if (record.getMessage() == null) {
+            LOG.debug("message == null");
+        } else {
+            builder.add("message", record.getMessage());
+        }
+
+        if (record.getLevel() == null) {
+            LOG.debug("level == null");
+        }
+
+        else {
+            builder.add("level", record.getLevel().getName());
+        }
+
+        if (record.getSourceClassName() == null) {
+            LOG.debug("sourceClassName == null");
+        }
+
+        else {
+            builder.add("class", record.getSourceClassName());
+        }
+
+        if (record.getSourceMethodName() == null) {
+            LOG.debug("sourceMethodName == null");
+        }
+
+        else {
+            builder.add("method", record.getSourceMethodName());
+        }
+
+        if (record.getSourceFileName() == null) {
+            LOG.debug("sourceFileName == null");
+        }
+
+        else {
+            builder.add("file", record.getSourceFileName());
+        }
+
+
+        if (record.getLoggerClassName() == null) {
+            LOG.debug("loggerClassName == null");
+        }
+
+        else {
+            builder.add("loggerClass", record.getLoggerClassName());
+        }
+
+        if (record.getSourceLineNumber() < 0) {
+            LOG.debug("sourceLineNumber == "  + record.getSourceLineNumber());
+        }
+
+        else {
+            builder.add("line", record.getSourceLineNumber());
+        }
+
+        return builder.build();
     }
 }
