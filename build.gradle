@@ -24,7 +24,7 @@ dependencies {
     compileOnly group: 'jakarta.platform', name: 'jakarta.jakartaee-api', version: '9.1.0'
     compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.19.0'
     compileOnly group: 'org.jboss.logmanager', name: 'jboss-logmanager', version: '2.1.19.Final'
-
+    compileOnly group: 'io.undertow', name: 'undertow-core', version: '2.3.0.Final'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
