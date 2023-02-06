@@ -2,12 +2,12 @@ package ch.performancebuildings.newrelic;
 
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonObjectBuilder;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 import java.net.InetAddress;
 import java.net.URI;
@@ -18,7 +18,7 @@ import java.net.http.HttpResponse;
 
 public class RequestDumpingHandler implements HttpHandler {
 
-    private static final Logger LOG = LogManager.getLogger(RequestDumpingHandler.class);
+    private static final Logger LOG = Logger.getLogger(RequestDumpingHandler.class);
 
     private static final String hostname;
 

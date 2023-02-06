@@ -13,7 +13,7 @@ Build the distribution by running this command:
 
 Add the module to Wildfly
 
-``module add --name=ch.performancebuildings.newrelic --dependencies=io.undertow.core,org.apache.logging.log4j.api,org.jboss.logmanager,jakarta.json.api --resources=~/YOUR_PATH/wildfly-newrelic-1.0-SNAPSHOT.jar``
+``module add --name=ch.performancebuildings.newrelic --dependencies=io.undertow.core,org.apache.log4j,org.jboss.logmanager,javax.json.api --resources=~/YOUR_PATH/wildfly-newrelic-1.0-SNAPSHOT-javaee.jar``
 
 This creates the module in ``$WILDFLY_HOME/modules``
 

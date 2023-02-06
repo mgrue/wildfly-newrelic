@@ -1,11 +1,11 @@
 package ch.performancebuildings.newrelic;
 
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonObjectBuilder;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.jboss.logmanager.ExtHandler;
 import org.jboss.logmanager.ExtLogRecord;
 
@@ -18,7 +18,7 @@ import java.net.http.HttpResponse;
 
 public class NewrelicHandler extends ExtHandler {
 
-    private static final Logger LOG = LogManager.getLogger(NewrelicHandler.class);
+    private static final Logger LOG = Logger.getLogger(NewrelicHandler.class);
 
     private static final String hostname;
 
